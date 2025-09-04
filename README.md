@@ -2,6 +2,7 @@
 
 Class Diagram
 
-<img width="447" height="625" alt="image" src="https://github.com/user-attachments/assets/bbc0fff9-e2e6-4a35-a861-ab7a4a687418" />
+<img width="443" height="623" alt="image" src="https://github.com/user-attachments/assets/302ff0a7-f085-479d-bd3d-48302fa56673" />
+
 
 
