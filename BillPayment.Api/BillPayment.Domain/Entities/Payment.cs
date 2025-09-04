@@ -1,6 +1,6 @@
 ﻿namespace BillPayment.Domain.Entities
 {
-    public class Payment
+    public class Payment: DomainEntity
     {
         public int Id { get; set; }
         public decimal Amount { get; set; }

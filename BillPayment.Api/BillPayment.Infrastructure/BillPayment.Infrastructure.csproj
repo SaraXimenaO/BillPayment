@@ -29,4 +29,10 @@
     <ProjectReference Include="..\BillPayment.Domain\BillPayment.Domain.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Adapters\" />
+    <Folder Include="Extensions\" />
+    <Folder Include="Ports\" />
+  </ItemGroup>
+
 </Project>

@@ -1,6 +1,8 @@
-﻿namespace BillPayment.Domain.Entities
+﻿using BillPayment.Domain.Entities;
+
+namespace BillPayment.Domain.Entities
 {
-    public class Invoice
+    public class Invoice: DomainEntity
     {
         public int Id { get; set; }
         public DateTime IssueDate { get; set; }
