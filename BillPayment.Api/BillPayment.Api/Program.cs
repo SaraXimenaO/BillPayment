@@ -10,7 +10,7 @@ var configuration = builder.Configuration;
 builder.Services.AddDbContext<ApplicationContext>(options =>
 {
     options.UseSqlServer(configuration.GetConnectionString("db"),
-        x => x.MigrationsAssembly("Products.Api"));
+        x => x.MigrationsAssembly("BillPayment.Infrastructure"));
 });
 
 builder.Services.AddDomainServices();
