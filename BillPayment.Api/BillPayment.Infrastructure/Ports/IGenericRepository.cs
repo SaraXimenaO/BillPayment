@@ -5,7 +5,8 @@ namespace BillPayment.Infrastructure.Ports;
     {
         Task<T> GetByIdAsync(int id);
         Task<T> AddAsync(T entity);
-        void UpdateAsync(T entity);
+        void Update(T entity);
         Task Save();
+        Task DeleteAsync(T entity);
     }
 

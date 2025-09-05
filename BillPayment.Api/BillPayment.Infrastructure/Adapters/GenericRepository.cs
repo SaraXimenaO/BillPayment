@@ -27,11 +27,19 @@ public class GenericRepository<T> : IGenericRepository<T> where T : DomainEntity
         return await _dbSet.FindAsync(id) ?? throw new ArgumentNullException(nameof(id));
     }
 
-    public void UpdateAsync(T entity)
+    public void Update(T entity)
     {
         _dbSet.Update(entity);
     }
 
     public async Task Save() => await _context.SaveChangesAsync();
+
+    public async Task DeleteAsync(T entity)
+    {
+        if (entity != null)
+        {
+            _dbSet.Remove(entity);
+        }
+    }
 }
 

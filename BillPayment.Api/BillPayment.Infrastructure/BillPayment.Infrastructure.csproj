@@ -30,7 +30,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Adapters\" />
     <Folder Include="Extensions\" />
     <Folder Include="Ports\" />
   </ItemGroup>
