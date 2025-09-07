@@ -1,6 +1,8 @@
 using BillPayment.Infrastructure.Context;
-using Microsoft.EntityFrameworkCore;
 using BillPayment.Infrastructure.Extensions;
+using MediatR;
+using Microsoft.EntityFrameworkCore;
+using System.Reflection;
 
 var builder = WebApplication.CreateBuilder(args);
 var configuration = builder.Configuration;
@@ -19,6 +21,7 @@ builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+builder.Services.AddMediatR(Assembly.Load("BillPayment.Application"), typeof(Program).Assembly);
 
 var app = builder.Build();
 

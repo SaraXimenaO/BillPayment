@@ -12,9 +12,11 @@ namespace BillPayment.Infrastructure.Adapters
         {
             _userRepository = userRepository;
         }
-        public async Task AddUserAsync(User user)
+        public async Task<int> AddUserAsync(User user)
         {
             await _userRepository.AddAsync(user);
+            await _userRepository.Save();
+            return user.Id;
         }
 
         public void UpdateUser(User user)
