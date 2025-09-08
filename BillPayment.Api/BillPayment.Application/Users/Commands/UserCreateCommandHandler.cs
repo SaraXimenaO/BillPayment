@@ -2,26 +2,23 @@
 using BillPayment.Domain.Entities;
 using MediatR;
 
-namespace BillPayment.Application.Users.Commands
+namespace BillPayment.Application.Users.Commands;
+
+public sealed class UserCreateCommandHandler(IUsersRepository usersRepository, IPasswordHasherService passwordHasher)
+    : IRequestHandler<UserCreateCommand, int>
 {
-    public class UserCreateCommandHandler : IRequestHandler<UserCreateCommand, int>
+    public async Task<int> Handle(UserCreateCommand request, CancellationToken cancellationToken)
     {
-        private readonly IUsersRepository _usersRepository;
-        private readonly IPasswordHasherService _passwordHasher;
+        var hashedPassword = passwordHasher.Hash(request.PasswordHash);
+        var user = new User(
+            request.Name,
+            request.Document,
+            request.UserName,
+            hashedPassword,
+            request.UserRoleId
+        );
 
-        public UserCreateCommandHandler(IUsersRepository usersRepository, IPasswordHasherService passwordHasher) {
-            _usersRepository = usersRepository;
-            _passwordHasher = passwordHasher;
-
-        }
-        public async Task<int> Handle(UserCreateCommand request, CancellationToken cancellationToken)
-        {
-            var hashedPassword = _passwordHasher.Hash(request.PasswordHash);
-            User user = new User(request.Name, request.Document, request.UserName, hashedPassword, request.UserRoleId);
-           
-            await _usersRepository.AddUserAsync(user);
-            return user.Id;
-
-        }
+        await usersRepository.AddUserAsync(user);
+        return user.Id;
     }
 }
