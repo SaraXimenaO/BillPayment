@@ -24,21 +24,21 @@ namespace BillPayment.Api.Controllers
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
 
-            try
-            {
-                var createdProductId = await _mediator.Send(userCreateCommand);
-                return CreatedAtAction(
-                    nameof(CreateUser),
-                    new { productId = createdProductId },
-                    createdProductId
-                );
-            }
-            catch (Exception ex)
-            {
-                _logger.LogError(ex, "Error occurred while inserting product");
-                return StatusCode(500, "Internal server error");
-            }
+            var createdProductId = await _mediator.Send(userCreateCommand);
+            return CreatedAtAction(
+                nameof(CreateUser),
+                new { productId = createdProductId },
+                createdProductId
+            );
+        }
 
+        [HttpPut]
+        public async Task<IActionResult> UpdateUser([FromBody] UserUpdateCommand userUpdateCommand)
+        {
+            if (!ModelState.IsValid)
+                return BadRequest(ModelState);
+            await _mediator.Send(userUpdateCommand);
+            return NoContent();
         }
     }
 }

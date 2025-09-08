@@ -2,6 +2,7 @@ using BillPayment.Infrastructure.Context;
 using BillPayment.Infrastructure.Extensions;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.DependencyInjection;
 using System.Reflection;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -16,6 +17,9 @@ builder.Services.AddDbContext<ApplicationContext>(options =>
 });
 
 builder.Services.AddDomainServices();
+builder.Services.AddAutoMapper(
+    Assembly.Load("BillPayment.Application")
+);
 
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
