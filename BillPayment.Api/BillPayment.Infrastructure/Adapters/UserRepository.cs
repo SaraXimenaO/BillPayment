@@ -2,32 +2,23 @@
 using BillPayment.Domain.Ports;
 using BillPayment.Infrastructure.Ports;
 
-namespace BillPayment.Infrastructure.Adapters
+namespace BillPayment.Infrastructure.Adapters;
+
+public sealed class UserRepository(IGenericRepository<User> userRepository) : IUsersRepository
 {
-    public class UserRepository : IUsersRepository
+    public async Task<int> AddUserAsync(User user)
     {
-        readonly IGenericRepository<User> _userRepository;
+        await userRepository.AddAsync(user);
+        await userRepository.Save();
+        return user.Id;
+    }
 
-        public UserRepository(IGenericRepository<User> userRepository)
-        {
-            _userRepository = userRepository;
-        }
-        public async Task<int> AddUserAsync(User user)
-        {
-            await _userRepository.AddAsync(user);
-            await _userRepository.Save();
-            return user.Id;
-        }
+    public void UpdateUser(User user) => userRepository.Update(user);
 
-        public void UpdateUser(User user)
-        {
-            _userRepository.Update(user);
-        }
-
-        public async Task DeleteUserAsync(int userId)
-        {
-            User entity = await _userRepository.GetByIdAsync(userId);
-            await _userRepository.DeleteAsync(entity);
-        }
+    public async Task DeleteUserAsync(int userId)
+    {
+        var entity = await userRepository.GetByIdAsync(userId);
+        await userRepository.DeleteAsync(entity);
+        await userRepository.Save();
     }
 }
