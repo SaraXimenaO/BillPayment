@@ -40,5 +40,15 @@ namespace BillPayment.Api.Controllers
             await _mediator.Send(userUpdateCommand);
             return NoContent();
         }
+
+        [HttpDelete]
+        public async Task<IActionResult> DeleteUser([FromQuery] int userId)
+        {
+            if (userId <= 0)
+                return BadRequest("Invalid user ID.");
+            var deleteCommand = new UserDeleteCommand(userId);
+            await _mediator.Send(deleteCommand);
+            return NoContent();
+        }
     }
 }

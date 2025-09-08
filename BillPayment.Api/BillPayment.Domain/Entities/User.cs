@@ -1,4 +1,6 @@
-﻿namespace BillPayment.Domain.Entities
+﻿using Throw;
+
+namespace BillPayment.Domain.Entities
 {
     public class User: DomainEntity
     {
@@ -19,6 +21,10 @@
             UserName = userName;
             PasswordHash = hashedPassword;
             UserRoleId = userRoleId;
+        }
+
+        public void validateEntity() {
+            Id.Throw().ThrowIfNull("El Usuario no existe");
         }
     }
 }
